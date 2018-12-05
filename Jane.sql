@@ -24,12 +24,12 @@ DROP TABLE IF EXISTS `back`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `back` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
-  `vackContent` varchar(300) DEFAULT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `backContent` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `backDate` datetime DEFAULT NULL,
   PRIMARY KEY (`Uid`),
   CONSTRAINT `back_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `back` (
 
 LOCK TABLES `back` WRITE;
 /*!40000 ALTER TABLE `back` DISABLE KEYS */;
-INSERT INTO `back` VALUES (1,'??','?????','2018-12-05 00:00:00');
+INSERT INTO `back` VALUES (1,'花颜','很喜欢','2018-12-05 00:00:00');
 /*!40000 ALTER TABLE `back` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,13 +51,13 @@ DROP TABLE IF EXISTS `chat`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chat` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
-  `usernameTo` varchar(24) DEFAULT NULL,
-  `chatContent` text,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `usernameTo` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `chatContent` mediumtext COLLATE utf8_unicode_ci,
   `chatDate` datetime DEFAULT NULL,
   PRIMARY KEY (`Uid`),
   CONSTRAINT `chat_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +66,7 @@ CREATE TABLE `chat` (
 
 LOCK TABLES `chat` WRITE;
 /*!40000 ALTER TABLE `chat` DISABLE KEYS */;
-INSERT INTO `chat` VALUES (1,'??','??','????','2018-12-05 00:00:00');
+INSERT INTO `chat` VALUES (1,'花颜','1','你好','2018-12-05 00:00:00');
 /*!40000 ALTER TABLE `chat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,14 +79,14 @@ DROP TABLE IF EXISTS `collect`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `collect` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   `trendsId` int(11) NOT NULL,
   `collectDate` datetime DEFAULT NULL,
   PRIMARY KEY (`trendsId`),
   KEY `Uid` (`Uid`),
   CONSTRAINT `collect_ibfk_2` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`),
   CONSTRAINT `collect_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,7 +95,7 @@ CREATE TABLE `collect` (
 
 LOCK TABLES `collect` WRITE;
 /*!40000 ALTER TABLE `collect` DISABLE KEYS */;
-INSERT INTO `collect` VALUES (1,'??',1,'2018-12-05 00:00:00');
+INSERT INTO `collect` VALUES (1,'花颜',1,'2018-12-05 00:00:00');
 /*!40000 ALTER TABLE `collect` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -108,10 +108,10 @@ DROP TABLE IF EXISTS `follower`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `follower` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Uid`),
   CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +120,7 @@ CREATE TABLE `follower` (
 
 LOCK TABLES `follower` WRITE;
 /*!40000 ALTER TABLE `follower` DISABLE KEYS */;
-INSERT INTO `follower` VALUES (1,'??');
+INSERT INTO `follower` VALUES (1,'花颜');
 /*!40000 ALTER TABLE `follower` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,10 +133,10 @@ DROP TABLE IF EXISTS `keyWord`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `keyWord` (
   `trendsId` int(11) NOT NULL,
-  `keyContent` varchar(200) NOT NULL,
+  `keyContent` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`trendsId`),
   CONSTRAINT `keyWord_ibfk_1` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -145,7 +145,7 @@ CREATE TABLE `keyWord` (
 
 LOCK TABLES `keyWord` WRITE;
 /*!40000 ALTER TABLE `keyWord` DISABLE KEYS */;
-INSERT INTO `keyWord` VALUES (1,'???????');
+INSERT INTO `keyWord` VALUES (1,'减肥');
 /*!40000 ALTER TABLE `keyWord` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,13 +158,15 @@ DROP TABLE IF EXISTS `target`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `target` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   `usernameTargetTo` int(11) DEFAULT NULL,
   `target` int(11) DEFAULT NULL,
-  `targetRelation` char(5) DEFAULT NULL,
+  `targetRelation` char(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Uid`),
+  KEY `usernameTargetTo` (`usernameTargetTo`),
+  CONSTRAINT `target_ibfk_2` FOREIGN KEY (`usernameTargetTo`) REFERENCES `user` (`Uid`),
   CONSTRAINT `target_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -173,7 +175,7 @@ CREATE TABLE `target` (
 
 LOCK TABLES `target` WRITE;
 /*!40000 ALTER TABLE `target` DISABLE KEYS */;
-INSERT INTO `target` VALUES (1,'??',1,10,'????');
+INSERT INTO `target` VALUES (1,'花颜',1,10,'互相关注');
 /*!40000 ALTER TABLE `target` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,16 +188,17 @@ DROP TABLE IF EXISTS `trends`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trends` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   `trendsId` int(11) NOT NULL,
-  `audioName` varchar(50) DEFAULT NULL,
-  `imageName` varchar(50) DEFAULT NULL,
-  `articleName` varchar(300) DEFAULT NULL,
+  `audioName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `imageName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `articleName` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `star` int(11) DEFAULT NULL,
   PRIMARY KEY (`trendsId`),
   KEY `Uid` (`Uid`),
+  CONSTRAINT `trends_ibfk_2` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
   CONSTRAINT `trends_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,7 +207,7 @@ CREATE TABLE `trends` (
 
 LOCK TABLES `trends` WRITE;
 /*!40000 ALTER TABLE `trends` DISABLE KEYS */;
-INSERT INTO `trends` VALUES (1,'??',1,'??','??','???????',10);
+INSERT INTO `trends` VALUES (1,'花颜',1,'当你','减肥','减肥',10);
 /*!40000 ALTER TABLE `trends` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -217,16 +220,16 @@ DROP TABLE IF EXISTS `trendsReply`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trendsReply` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   `trendsReplyId` int(11) NOT NULL,
-  `replyDate` char(14) NOT NULL,
-  `replyContent` text,
+  `replyDate` datetime DEFAULT NULL,
+  `replyContent` mediumtext COLLATE utf8_unicode_ci,
   `star` int(11) DEFAULT NULL,
   PRIMARY KEY (`trendsReplyId`),
   KEY `Uid` (`Uid`),
-  CONSTRAINT `trendsReply_ibfk_2` FOREIGN KEY (`trendsReplyId`) REFERENCES `trends` (`trendsId`),
-  CONSTRAINT `trendsReply_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `trendsReply_ibfk_2` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
+  CONSTRAINT `trendsReply_ibfk_1` FOREIGN KEY (`trendsReplyId`) REFERENCES `trends` (`trendsId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,7 +238,7 @@ CREATE TABLE `trendsReply` (
 
 LOCK TABLES `trendsReply` WRITE;
 /*!40000 ALTER TABLE `trendsReply` DISABLE KEYS */;
-INSERT INTO `trendsReply` VALUES (1,'??',1,'2018/12/5','???',10);
+INSERT INTO `trendsReply` VALUES (1,'花颜',1,'2018-12-05 00:00:00','很喜欢',10);
 /*!40000 ALTER TABLE `trendsReply` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,12 +251,14 @@ DROP TABLE IF EXISTS `trendsStar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trendsStar` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   `trendsId` int(11) NOT NULL,
   `starDate` datetime NOT NULL,
   PRIMARY KEY (`trendsId`),
-  CONSTRAINT `trendsStar_ibfk_1` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `Uid` (`Uid`),
+  CONSTRAINT `trendsStar_ibfk_2` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`),
+  CONSTRAINT `trendsStar_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +267,7 @@ CREATE TABLE `trendsStar` (
 
 LOCK TABLES `trendsStar` WRITE;
 /*!40000 ALTER TABLE `trendsStar` DISABLE KEYS */;
-INSERT INTO `trendsStar` VALUES (1,'??',1,'2018-12-05 00:00:00');
+INSERT INTO `trendsStar` VALUES (1,'花颜',1,'2018-12-05 00:00:00');
 /*!40000 ALTER TABLE `trendsStar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,25 +280,25 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) NOT NULL,
+  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   `age` int(11) NOT NULL,
-  `constellation` varchar(13) NOT NULL,
+  `constellation` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
   `target` int(11) NOT NULL,
-  `password` varchar(24) NOT NULL,
-  `gender` char(2) NOT NULL,
-  `avatar` varchar(24) NOT NULL,
-  `area` varchar(100) NOT NULL,
-  `phoneNumber` char(11) NOT NULL,
-  `myReply` varchar(300) DEFAULT NULL,
+  `password` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `gender` char(2) COLLATE utf8_unicode_ci NOT NULL,
+  `avatar` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `area` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `phoneNumber` char(11) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `myReply` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `grade` int(11) NOT NULL,
   `followers` int(11) DEFAULT NULL,
-  `trendsTitle` varchar(300) DEFAULT NULL,
-  `bgImage` varchar(150) DEFAULT NULL,
-  `qq` varchar(30) DEFAULT NULL,
-  `weChat` varchar(30) DEFAULT NULL,
-  `web` varchar(30) DEFAULT NULL,
+  `trendsTitle` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `bgImage` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `qq` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `weChat` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `web` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -302,7 +307,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'??',18,'???',10,'123456','?','','???','12345698789','',2,20,'???????','','12345678','??','??');
+INSERT INTO `user` VALUES (1,'花颜',18,'水瓶座',10,'1234567','女','','石家庄','15336525986','很喜欢你',2,5,'如何减肥','','花颜','花颜','花颜');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -315,4 +320,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-05 14:39:12
+-- Dump completed on 2018-12-05 20:13:26
