@@ -16,6 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `UserName` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `UserPass` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `admin`
+--
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `back`
 --
 
@@ -84,8 +108,8 @@ CREATE TABLE `collect` (
   `collectDate` datetime DEFAULT NULL,
   PRIMARY KEY (`trendsId`),
   KEY `Uid` (`Uid`),
-  CONSTRAINT `collect_ibfk_2` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`),
-  CONSTRAINT `collect_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
+  CONSTRAINT `collect_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
+  CONSTRAINT `collect_ibfk_2` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -164,8 +188,8 @@ CREATE TABLE `target` (
   `targetRelation` char(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Uid`),
   KEY `usernameTargetTo` (`usernameTargetTo`),
-  CONSTRAINT `target_ibfk_2` FOREIGN KEY (`usernameTargetTo`) REFERENCES `user` (`Uid`),
-  CONSTRAINT `target_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
+  CONSTRAINT `target_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
+  CONSTRAINT `target_ibfk_2` FOREIGN KEY (`usernameTargetTo`) REFERENCES `user` (`Uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -196,8 +220,8 @@ CREATE TABLE `trends` (
   `star` int(11) DEFAULT NULL,
   PRIMARY KEY (`trendsId`),
   KEY `Uid` (`Uid`),
-  CONSTRAINT `trends_ibfk_2` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
-  CONSTRAINT `trends_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
+  CONSTRAINT `trends_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
+  CONSTRAINT `trends_ibfk_2` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -227,8 +251,8 @@ CREATE TABLE `trendsReply` (
   `star` int(11) DEFAULT NULL,
   PRIMARY KEY (`trendsReplyId`),
   KEY `Uid` (`Uid`),
-  CONSTRAINT `trendsReply_ibfk_2` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
-  CONSTRAINT `trendsReply_ibfk_1` FOREIGN KEY (`trendsReplyId`) REFERENCES `trends` (`trendsId`)
+  CONSTRAINT `trendsReply_ibfk_1` FOREIGN KEY (`trendsReplyId`) REFERENCES `trends` (`trendsId`),
+  CONSTRAINT `trendsReply_ibfk_2` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -256,8 +280,8 @@ CREATE TABLE `trendsStar` (
   `starDate` datetime NOT NULL,
   PRIMARY KEY (`trendsId`),
   KEY `Uid` (`Uid`),
-  CONSTRAINT `trendsStar_ibfk_2` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`),
-  CONSTRAINT `trendsStar_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
+  CONSTRAINT `trendsStar_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
+  CONSTRAINT `trendsStar_ibfk_2` FOREIGN KEY (`trendsId`) REFERENCES `trends` (`trendsId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -320,4 +344,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-05 20:28:08
+-- Dump completed on 2018-12-12 10:09:24
