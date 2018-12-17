@@ -23,11 +23,11 @@ DROP TABLE IF EXISTS `admin`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL,
-  `UserName` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
-  `UserPass` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `UserName` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `UserPass` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -48,18 +48,18 @@ DROP TABLE IF EXISTS `article`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `article` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sort` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
   `title` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `author` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
   `date` datetime NOT NULL,
   `content` text COLLATE utf8_unicode_ci NOT NULL,
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `article_ibfk_1` (`Uid`),
   CONSTRAINT `article_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `back`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `back` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `backContent` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `backDate` datetime DEFAULT NULL,
   `name` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -109,8 +109,8 @@ DROP TABLE IF EXISTS `chat`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `chat` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
-  `usernameTo` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `usernameTo` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   `chatContent` mediumtext COLLATE utf8_unicode_ci,
   `chatDate` datetime DEFAULT NULL,
   `name` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -138,7 +138,7 @@ DROP TABLE IF EXISTS `collect`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `collect` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `trendsId` int(11) NOT NULL,
   `collectDate` datetime DEFAULT NULL,
   PRIMARY KEY (`trendsId`,`Uid`),
@@ -167,9 +167,9 @@ DROP TABLE IF EXISTS `follower`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `follower` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `fid` int(11) DEFAULT NULL,
-  `name` varchar(24) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Uid`),
   CONSTRAINT `follower_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -219,14 +219,14 @@ DROP TABLE IF EXISTS `target`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `target` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `tid` int(11) DEFAULT NULL,
   `target` int(11) DEFAULT NULL,
   `targetRelation` char(5) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`Uid`),
   KEY `target_ibfk_2` (`tid`),
-  CONSTRAINT `target_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `user` (`Uid`),
-  CONSTRAINT `target_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
+  CONSTRAINT `target_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
+  CONSTRAINT `target_ibfk_2` FOREIGN KEY (`tid`) REFERENCES `user` (`Uid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -249,8 +249,8 @@ DROP TABLE IF EXISTS `trends`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trends` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
-  `trendsId` int(11) NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `trendsId` int(11) NOT NULL AUTO_INCREMENT,
   `audioName` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `imageName` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `articleName` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -264,7 +264,7 @@ CREATE TABLE `trends` (
   KEY `Uid` (`Uid`),
   CONSTRAINT `trends_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
   CONSTRAINT `trends_ibfk_2` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -286,7 +286,7 @@ DROP TABLE IF EXISTS `trendsReply`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trendsReply` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `trendsReplyId` int(11) NOT NULL,
   `replyDate` datetime DEFAULT NULL,
   `replyContent` mediumtext COLLATE utf8_unicode_ci,
@@ -318,10 +318,10 @@ DROP TABLE IF EXISTS `trendsStar`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `trendsStar` (
   `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `trendsId` int(11) NOT NULL,
   `starDate` datetime NOT NULL,
-  `name` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`trendsId`),
   KEY `Uid` (`Uid`),
   CONSTRAINT `trendsStar_ibfk_1` FOREIGN KEY (`Uid`) REFERENCES `user` (`Uid`),
@@ -347,14 +347,14 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `Uid` int(11) NOT NULL,
-  `username` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `Uid` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `age` int(11) NOT NULL,
   `constellation` varchar(13) COLLATE utf8_unicode_ci DEFAULT NULL,
   `target` int(11) NOT NULL,
-  `password` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `gender` char(2) COLLATE utf8_unicode_ci NOT NULL,
-  `avatar` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `img` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
   `area` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `phoneNumber` char(11) COLLATE utf8_unicode_ci DEFAULT NULL,
   `myReply` varchar(300) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -366,9 +366,9 @@ CREATE TABLE `user` (
   `weChat` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `web` varchar(30) COLLATE utf8_unicode_ci DEFAULT NULL,
   `regtime` datetime DEFAULT NULL,
-  `name` varchar(24) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`Uid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -390,4 +390,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-12 16:46:19
+-- Dump completed on 2018-12-17 14:37:57
